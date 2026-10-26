@@ -149,15 +149,18 @@ for fold, (train_idx, val_idx) in enumerate(skf.split(np.zeros(10), y_desbalance
 
 Miden la discrepancia entre los valores reales ($y^{(i)}$) y las estimaciones simuladas ($\hat{y}^{(i)}$) para $m$ observaciones:
 
-* **RMSE (Root Mean Squared Error):** eleva los errores al cuadrado antes de promediar, penalizando fuertemente las desviaciones grandes o valores atípicos (norma $\ell_2$):
+* **RMSE (Root Mean Squared Error):** eleva los errores al cuadrado antes de promediar, penalizando fuertemente las 
+desviaciones grandes o valores atípicos (norma $\ell_2$):
 
 $$\text{RMSE} = \sqrt{\frac{1}{m} \sum_{i=1}^{m} \left(\hat{y}^{(i)} - y^{(i)} \right)^2}$$
 
-* **MAE (Mean Absolute Error):** aplica una ponderación lineal absoluta (norma $\ell_1$), ofreciendo mayor robustez ante outliers:
+* **MAE (Mean Absolute Error):** aplica una ponderación lineal absoluta (norma $\ell_1$), 
+ofreciendo mayor robustez ante outliers:
 
 $$\text{MAE} = \frac{1}{m} \sum_{i=1}^{m} \left| \hat{y}^{(i)} - y^{(i)} \right|$$
 
-* **MBE (Mean Bias Error):** conserva el signo algebraico para cuantificar el sesgo sistemático del estimador (sobreestimación si $\text{MBE} > 0$, subestimación si $\text{MBE} < 0$):
+* **MBE (Mean Bias Error):** conserva el signo algebraico para cuantificar el sesgo sistemático del estimador 
+(sobreestimación si $\text{MBE} > 0$, subestimación si $\text{MBE} < 0$):
 
 $$\text{MBE} = \frac{1}{m} \sum_{i=1}^{m} \left( \hat{y}^{(i)} - y^{(i)} \right)$$
 
@@ -169,7 +172,8 @@ Fuentes:
 
 ## Métricas de Clasificación (Matriz de Confusión y Derivados)
 
-Para clasificaciones discretas, la Matriz de Confusión resume las decisiones en Verdaderos Positivos ($\text{TP}$), Verdaderos Negativos ($\text{TN}$), Falsos Positivos ($\text{FP}$) y Falsos Negativos ($\text{FN}$):
+Para clasificaciones discretas, la Matriz de Confusión resume las decisiones en Verdaderos Positivos ($\text{TP}$), 
+Verdaderos Negativos ($\text{TN}$), Falsos Positivos ($\text{FP}$) y Falsos Negativos ($\text{FN}$):
 
 * **Accuracy (Exactitud):** proporción global de clasificaciones correctas.
 
@@ -185,7 +189,8 @@ $$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 
 * **$F_1$-Score:** media armónica entre Precision y Recall, ideal para evaluar clases desbalanceadas.
 
-$$F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot \text{TP}}{2 \cdot \text{TP} + \text{FP} + \text{FN}}$$
+$$F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot \text{TP}}{2 
+\cdot \text{TP} + \text{FP} + \text{FN}}$$
 
 Fuentes:
 
@@ -250,11 +255,16 @@ print(classification_report(y_true_class, y_pred_class, target_names=['Normal', 
 
 """# Extracción de Características
 
-Comprende el conjunto de transformaciones matemáticas aplicadas sobre datos crudos para construir nuevas variables numéricas representativas que faciliten el modelamiento analítico:
+Comprende el conjunto de transformaciones matemáticas aplicadas sobre datos crudos para construir nuevas 
+variables numéricas representativas que faciliten el modelamiento analítico:
 
-* **Extracción de Características Polinomiales (`PolynomialFeatures`):** genera términos de interacción no lineal y potencias de las variables originales (ej. $x_1, x_2 \to 1, x_1, x_2, x_1^2, x_1 x_2, x_2^2$). Es fundamental en ingeniería para capturar no linearidades físicas entre sensores.
+* **Extracción de Características Polinomiales (`PolynomialFeatures`):** genera términos de interacción 
+no lineal y potencias de las variables originales (ej. $x_1, x_2 \to 1, x_1, x_2, x_1^2, x_1 x_2, x_2^2$). 
+Es fundamental en ingeniería para capturar no linearidades físicas entre sensores.
 
-* **Extracción de Descriptores Estadísticos en el Dominio del Tiempo:** convierte señales temporales o series de sensores crudas en métricas de resumen por ventana de tiempo (Media, Desviación Estándar, Valor Pico y Valor Cuadrático Medio - RMS).
+* **Extracción de Descriptores Estadísticos en el Dominio del Tiempo:** convierte señales temporales o 
+series de sensores crudas en métricas de resumen por ventana de tiempo (Media, Desviación Estándar, 
+Valor Pico y Valor Cuadrático Medio - RMS).
 
 Fuentes:
 
@@ -299,14 +309,22 @@ print(f"RMS (Root Mean Square): {rms_signal:.4f}")
 
 """# Actividades
 
-1. Se requiere crear un vector sintético $y$ de 120 elementos desbalanceados (100 ceros y 20 unos). Se debe utilizar `train_test_split` con un tamaño de prueba del 25% y configurar la opción para preservar la estratificación de clases. Finalmente, se debe mostrar por pantalla la cantidad exacta de elementos de cada clase presentes en el conjunto de entrenamiento y en el conjunto de prueba.
+1. Se requiere crear un vector sintético $y$ de 120 elementos desbalanceados (100 ceros y 20 unos). 
+Se debe utilizar `train_test_split` con un tamaño de prueba del 25% y configurar la opción para preservar 
+la estratificación de clases. Finalmente, se debe mostrar por pantalla la cantidad exacta de elementos de 
+cada clase presentes en el conjunto de entrenamiento y en el conjunto de prueba.
 
-2. Se debe programar una función en ***Python*** llamada `calcular_metricas_regresion(y_real, y_pred)` que reciba dos vectores numéricos continuos de NumPy y retorne un diccionario con los valores calculados manualmente de **RMSE**, **MAE** y **MBE**. La función debe ser probada utilizando los siguientes vectores sintéticos:
+2. Se debe programar una función en ***Python*** llamada `calcular_metricas_regresion(y_real, y_pred)` 
+que reciba dos vectores numéricos continuos de NumPy y retorne un diccionario con los valores calculados 
+manualmente de **RMSE**, **MAE** y **MBE**. La función debe ser probada utilizando los siguientes vectores sintéticos:
 
 * y_real_test = np.array([12.5, 15.0, 22.1, 18.3, 30.0])
 * y_pred_test = np.array([11.0, 16.2, 21.0, 19.0, 28.5])
 
-3. Para una matriz de señales de sensores sintéticos de tamaño $(5, 50)$ que representa 5 lecturas de sensores con 50 puntos de tiempo cada una, se debe escribir un código que calcule y extraiga el Valor Pico y la Desviación Estándar de cada una de las 5 lecturas, retornando una nueva matriz de características de tamaño $(5, 2)$. Emplee el siguiente código para generar la matriz:
+3. Para una matriz de señales de sensores sintéticos de tamaño $(5, 50)$ que representa 5 lecturas de 
+sensores con 50 puntos de tiempo cada una, se debe escribir un código que calcule y extraiga el Valor Pico y 
+la Desviación Estándar de cada una de las 5 lecturas, retornando una nueva matriz de características de tamaño 
+$(5, 2)$. Emplee el siguiente código para generar la matriz:
 
 ```
 # Matriz sintética de 5 señales de sensores (5 filas, 50 columnas)
